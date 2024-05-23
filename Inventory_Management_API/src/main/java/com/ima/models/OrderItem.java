@@ -23,8 +23,8 @@ public class OrderItem {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "order_id", nullable = false)
+    private CustomerOrder order;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
