@@ -30,8 +30,8 @@ public class CustomerOrder {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems;
+    @OneToMany(mappedBy = "CustomerOrder")
+    private List<OrderItem> OrderItems;
 
     
 }

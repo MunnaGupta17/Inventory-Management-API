@@ -1,6 +1,7 @@
 package com.ima.models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,9 +23,9 @@ public class OrderItem {
     private int quantity;
     private double price;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private CustomerOrder order;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private CustomerOrder CustomerOrder;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

@@ -46,12 +46,13 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public void deleteProduct(Long productId)throws ResourceNotFoundException {
+	public String deleteProduct(Long productId)throws ResourceNotFoundException {
 		// TODO Auto-generated method stub
 		if (!productRepository.existsById(productId)) {
             throw new ResourceNotFoundException("Product not found with id: " + productId);
         }
         productRepository.deleteById(productId);
+        return "Product Deleted...";
 		
 	}
 
