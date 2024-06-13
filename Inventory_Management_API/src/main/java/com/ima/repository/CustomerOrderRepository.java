@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.ima.models.CustomerOrder;
 
 @Repository
-public interface OrderRepository extends JpaRepository<CustomerOrder, Long>{
+public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, Long>{
 
 }
