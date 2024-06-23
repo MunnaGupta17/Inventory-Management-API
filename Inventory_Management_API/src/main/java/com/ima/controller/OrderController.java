@@ -27,29 +27,29 @@ public class OrderController {
 	
 	@PostMapping("/customer/add")
 	public ResponseEntity<CustomerOrder> placeOrderController(@RequestBody CustomerOrder customerOrder) throws ResourceNotFoundException{
-		return new ResponseEntity<CustomerOrder>(orderService.placeOrder(customerOrder),HttpStatus.ACCEPTED);
+		return  ResponseEntity.ok(orderService.placeOrder(customerOrder));
 	}
 	@GetMapping("/customer/{customerOrderId}")
 	public ResponseEntity<CustomerOrder> getCustomerOrderController(@PathVariable Long customerOrderId) throws ResourceNotFoundException{
-		return new ResponseEntity<CustomerOrder>(orderService.getOrderById(customerOrderId),HttpStatus.ACCEPTED);
+		return  ResponseEntity.ok(orderService.getOrderById(customerOrderId));
 	}
 	@GetMapping("/customer/all")
 	public ResponseEntity<List<CustomerOrder>> getAllCustomerOrdersController(){
-		return new ResponseEntity<List<CustomerOrder>>(orderService.getAllOrders(),HttpStatus.ACCEPTED);
+		return  ResponseEntity.ok(orderService.getAllOrders());
 	}
 	@GetMapping("/item/{orderItemId}")
 	public ResponseEntity<OrderItem> getCustomerOrderItemController(@PathVariable Long orderItemId) throws ResourceNotFoundException{
-		return new ResponseEntity<OrderItem>(orderService.getOrderItembyId(orderItemId),HttpStatus.ACCEPTED);
+		return  ResponseEntity.ok(orderService.getOrderItembyId(orderItemId));
 	}
 	
 	@PostMapping("/item/update/{currentOrderItemId}")
 	public ResponseEntity<OrderItem> updateCustomerOrderItemController(@PathVariable Long currentOrderItemId,@RequestBody OrderItem currentOrderItem) throws ResourceNotFoundException{
-		return new ResponseEntity<OrderItem>(orderService.updateCustomerOrderItem(currentOrderItemId, currentOrderItem),HttpStatus.ACCEPTED);
+		return  ResponseEntity.ok(orderService.updateCustomerOrderItem(currentOrderItemId, currentOrderItem));
 	}
 	
 	@DeleteMapping("/customer/delete/{customerOrderId}")
 	public ResponseEntity<String> cancelOrderController(@PathVariable Long customerOrderId) throws ResourceNotFoundException{
-		return new ResponseEntity<String>(orderService.CancelOrder(customerOrderId),HttpStatus.ACCEPTED);
+		return ResponseEntity.ok(orderService.CancelOrder(customerOrderId));
 	}
 
 }

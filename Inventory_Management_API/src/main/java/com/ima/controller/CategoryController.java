@@ -3,7 +3,6 @@ package com.ima.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,37 +27,37 @@ public class CategoryController {
 	
 	@PostMapping("/add")
 	public ResponseEntity<Category> addCategoryController(@RequestBody Category category) throws ResourceNotFoundException{
-		return new ResponseEntity<Category>(categoryService.addCategory(category),HttpStatus.ACCEPTED);
+		return ResponseEntity.ok(categoryService.addCategory(category));
 	}
 	
 	@GetMapping("/get/{categoryId}")
 	public ResponseEntity<Category> getCategoryController(@PathVariable Long categoryId) throws CategoryException{
 		Category requestedCategory = categoryService.getCategoryById(categoryId);
-		return new ResponseEntity<Category>(requestedCategory,HttpStatus.ACCEPTED);
+		return ResponseEntity.ok(requestedCategory);
 	}
 	
-	@GetMapping("/get")
+	@GetMapping("/all")
 	public ResponseEntity<List<Category>> getAllcategoriesController(){
 		List<Category> requestedCategories = categoryService.getAllCategories();
-		return new ResponseEntity<List<Category>>(requestedCategories,HttpStatus.ACCEPTED);
+		return ResponseEntity.ok(requestedCategories);
 	}
 	
 	@GetMapping("/get/product")
 	public ResponseEntity<List<Product>> getCategoryAllProductController(@PathVariable Long categoryId) throws CategoryException{
 		List<Product> requestedCategoryProducts = categoryService.getCategoryAllProducts(categoryId);
-		return new ResponseEntity<List<Product>>(requestedCategoryProducts,HttpStatus.ACCEPTED);
+		return  ResponseEntity.ok(requestedCategoryProducts);
 	}
 	
 	@PostMapping("/update/{categoryId}")
 	public ResponseEntity<Category> updateCategoryController(@RequestBody Category newCategory,@PathVariable Long categoryId) throws CategoryException, ResourceNotFoundException{
 		Category updatedCategory = categoryService.updateCategory(categoryId, newCategory);
-		return new ResponseEntity<Category>(updatedCategory,HttpStatus.ACCEPTED);
+		return ResponseEntity.ok(updatedCategory);
 	}
 	
 	@DeleteMapping("/delete/{categoryId}")
 	public ResponseEntity<String> deleteCategoryController(@PathVariable Long categoryId) throws CategoryException{
 		String deleteMessage = categoryService.deleteCategory(categoryId);
-		return new ResponseEntity<String>(deleteMessage,HttpStatus.ACCEPTED);
+		return ResponseEntity.ok(deleteMessage);
 	}
 
 }

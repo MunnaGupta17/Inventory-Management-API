@@ -3,6 +3,7 @@ package com.ima.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,9 +58,14 @@ public class CategoryServiceImpl implements CategoryService{
 	public Category updateCategory(Long id, Category newCategory) throws ResourceNotFoundException, CategoryException {
 		// TODO Auto-generated method stub
 		if(newCategory == null)throw new ResourceNotFoundException("newCategory is null");
-		 Category category = getCategoryById(id);
-	      category.setName(newCategory.getName());
-	      return categoryRepository.save(category);
+		 Optional<Category> existingCategoryOpt = categoryRepository.findById(id);
+		 if(existingCategoryOpt.isPresent()) {
+			 Category existingCategory = existingCategoryOpt.get();
+			 BeanUtils.copyProperties(newCategory, existingCategory, "id");
+			 return categoryRepository.save(existingCategory);
+		 }else {
+			 throw new CategoryException("cateogry not found with id: " + id );
+		 }
 	}
 
 	@Override

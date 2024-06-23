@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -38,11 +39,10 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public Product updateProduct(Long productId, Product product) throws ResourceNotFoundException {
 		// TODO Auto-generated method stub
-		if (!productRepository.existsById(productId)) {
-            throw new ResourceNotFoundException("Product not found with id: " + productId);
-        }
-        product.setId(productId);
-        return productRepository.save(product);
+		if(product == null) throw new ResourceNotFoundException("product is null");
+		Product existingProduct = getProductById(productId);
+		BeanUtils.copyProperties(product, existingProduct);
+        return productRepository.save(existingProduct);
 	}
 
 	@Override

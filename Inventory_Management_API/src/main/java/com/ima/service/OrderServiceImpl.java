@@ -3,6 +3,7 @@ package com.ima.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,9 +56,10 @@ public class OrderServiceImpl implements OrderService{
 	public OrderItem updateCustomerOrderItem(Long orderItemId, OrderItem updatedOrderItem) throws ResourceNotFoundException {
 		// TODO Auto-generated method stub
 		if(updatedOrderItem == null) throw new ResourceNotFoundException("OrderItem is empty");
-		OrderItem orderItem = getOrderItembyId(orderItemId);
-		orderItem.setId(updatedOrderItem.getId());
-		return orderItemRepo.save(updatedOrderItem);
+		
+		OrderItem existingorderItem = getOrderItembyId(orderItemId);
+		BeanUtils.copyProperties(updatedOrderItem, existingorderItem);
+		return orderItemRepo.save(existingorderItem);
 	}
 
 	@Override

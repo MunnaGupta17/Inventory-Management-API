@@ -27,7 +27,7 @@ public class ProductController {
     @PostMapping("/add")
     public ResponseEntity<Product> addProductController(@RequestBody Product product){
     	Product addedProduct = productService.addProduct(product);
-    	return new ResponseEntity<Product>(addedProduct, HttpStatus.OK);
+    	return ResponseEntity.ok(addedProduct);
     	
     }
     
@@ -35,7 +35,7 @@ public class ProductController {
     public ResponseEntity<Product> updateProductController(@RequestBody Product product, @PathVariable Long productId) throws ResourceNotFoundException{
     	
 		Product updatedProduct = productService.updateProduct(productId, product);
-		return new ResponseEntity<Product>(updatedProduct,HttpStatus.ACCEPTED);
+		return ResponseEntity.ok(updatedProduct);
 		
     }
     
@@ -43,19 +43,19 @@ public class ProductController {
     public ResponseEntity<String> deleteProductController(@PathVariable Long productId) throws ResourceNotFoundException{
     	
     	String deletedProduct = productService.deleteProduct(productId);
-    	return new ResponseEntity<String>(deletedProduct,HttpStatus.NO_CONTENT);
+    	return ResponseEntity.ok(deletedProduct);
     	
     }
     
     @GetMapping("/get")
     public ResponseEntity<List<Product>> getAllProductController(){
-    	return new ResponseEntity<List<Product>>(productService.getAllProducts(),HttpStatus.ACCEPTED);
+    	return ResponseEntity.ok(productService.getAllProducts());
     }
     
     @GetMapping("/get/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable Long productId) throws ResourceNotFoundException{
     	Product product = productService.getProductById(productId); 
-    	return new ResponseEntity<Product>(product,HttpStatus.ACCEPTED);
+    	return ResponseEntity.ok(product);
     }
 
     
