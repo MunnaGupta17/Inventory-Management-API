@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,8 +32,9 @@ public class CustomerOrder {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "CustomerOrder")
-    private List<OrderItem> OrderItems;
+    @OneToMany(mappedBy = "customerOrder")
+    @JsonManagedReference
+    private List<OrderItem> orderItems;
 
     
 }

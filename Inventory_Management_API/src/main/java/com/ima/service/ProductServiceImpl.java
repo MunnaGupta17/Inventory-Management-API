@@ -7,10 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.ima.exception.ProductException;
 import com.ima.exception.ResourceNotFoundException;
 import com.ima.models.Product;
 import com.ima.repository.ProductRepository;
@@ -41,7 +43,7 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		if(product == null) throw new ResourceNotFoundException("product is null");
 		Product existingProduct = getProductById(productId);
-		BeanUtils.copyProperties(product, existingProduct);
+		BeanUtils.copyProperties(product, existingProduct, "id");
         return productRepository.save(existingProduct);
 	}
 
@@ -57,9 +59,15 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<Product> getAllProducts() {
-		// TODO Auto-generated method stub
-		return productRepository.findAll();
+	public List<Product> getAllProducts() throws ProductException {
+		 try {
+		        return productRepository.findAll();
+		    } catch (DataAccessException e) {
+		        // Log the exception (optional)
+		        logger.error("Error fetching all products", e);
+		        // Throw a custom exception
+		        throw new ProductException("Failed to fetch all products"+ e);
+		    }
 	}
 
 	@Override

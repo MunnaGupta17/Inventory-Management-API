@@ -19,7 +19,7 @@ import com.ima.models.OrderItem;
 import com.ima.service.OrderService;
 
 @RestController
-@RequestMapping("/api/order")
+@RequestMapping("/user/api/order")
 public class OrderController {
 	
 	@Autowired

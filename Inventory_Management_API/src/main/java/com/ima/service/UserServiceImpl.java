@@ -54,8 +54,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User getUserByUsername(String username) throws ResourceNotFoundException {
 		// TODO Auto-generated method stub
-		return userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with username: " + username));
+		return userRepository.findByUsername(username);
 	}
 
 }

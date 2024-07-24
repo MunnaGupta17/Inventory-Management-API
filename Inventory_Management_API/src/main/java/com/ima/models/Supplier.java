@@ -24,7 +24,7 @@ public class Supplier {
     private String contactNumber;
     private String email;
 
-    @OneToMany(mappedBy = "supplier")
+    @OneToMany
     private List<Product> products;
 
    

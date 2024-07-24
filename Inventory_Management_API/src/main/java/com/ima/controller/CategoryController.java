@@ -42,7 +42,7 @@ public class CategoryController {
 		return ResponseEntity.ok(requestedCategories);
 	}
 	
-	@GetMapping("/get/product")
+	@GetMapping("/get/product/{categoryId}")
 	public ResponseEntity<List<Product>> getCategoryAllProductController(@PathVariable Long categoryId) throws CategoryException{
 		List<Product> requestedCategoryProducts = categoryService.getCategoryAllProducts(categoryId);
 		return  ResponseEntity.ok(requestedCategoryProducts);

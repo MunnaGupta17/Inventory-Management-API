@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ima.exception.ProductException;
 import com.ima.exception.ResourceNotFoundException;
 import com.ima.models.Product;
 import com.ima.service.ProductService;
@@ -48,7 +49,7 @@ public class ProductController {
     }
     
     @GetMapping("/get")
-    public ResponseEntity<List<Product>> getAllProductController(){
+    public ResponseEntity<List<Product>> getAllProductController() throws ProductException{
     	return ResponseEntity.ok(productService.getAllProducts());
     }
     
